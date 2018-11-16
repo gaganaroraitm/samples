@@ -15,6 +15,7 @@
 			<email>gaganarora.itm@gmail.com</email>
 		</developer>
 	</developers>
+
 	<properties>
 		<version.springframework>4.3.17.RELEASE</version.springframework>
 		<version.springframework.boot>1.5.16.RELEASE</version.springframework.boot>
@@ -37,14 +38,9 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- <dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${version.springframework.cloud}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			 </dependency>
-			 -->
+			<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-dependencies</artifactId> 
+				<version>${version.springframework.cloud}</version> <type>pom</type> <scope>import</scope> 
+				</dependency> -->
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
@@ -87,6 +83,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
