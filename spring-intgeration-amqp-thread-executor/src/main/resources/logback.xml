@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="fileAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>application.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>application_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+			<maxFileSize>10MB</maxFileSize>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{dd MMM yyyy ;HH:mm:ss.SSS} %level [%thread]
+				%logger{0}.%M\(%line\) - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="fileAppender" />
+	</root>
+
+	<logger name="com.gogo">
+		<level value="INFO" />
+	</logger>
+</configuration>

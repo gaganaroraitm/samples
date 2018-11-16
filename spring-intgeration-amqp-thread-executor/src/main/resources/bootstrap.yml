@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: amqp
+server:
+  port: 8080
+config:
+  message:
+    executor: message-write-executor-caller
