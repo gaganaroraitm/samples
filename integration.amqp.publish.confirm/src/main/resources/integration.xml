@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:si-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:si="http://www.springframework.org/schema/integration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/integration
+      http://www.springframework.org/schema/integration/spring-integration.xsd
+      http://www.springframework.org/schema/integration/xml
+      http://www.springframework.org/schema/integration/xml/spring-integration-xml.xsd
+      http://www.springframework.org/schema/integration/amqp
+      http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd
+      http://www.springframework.org/schema/rabbit
+      http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+      http://www.springframework.org/schema/util
+      http://www.springframework.org/schema/util/spring-util.xsd
+      http://www.springframework.org/schema/task
+      http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<si:channel id="message-write-si-channel.caller" />
+	<si:channel id="confirm-ack-channel" />
+	<si:channel id="confirm-nack-channel" />
+	<int-amqp:outbound-channel-adapter
+		channel="message-write-si-channel.caller" exchange-name="message-write.exchange.caller"
+		routing-key="message-write.routing.caller" header-mapper="defaultHeaderMapper" 
+		confirm-ack-channel="confirm-ack-channel" confirm-nack-channel="confirm-nack-channel" confirm-correlation-expression="payload" amqp-template="amqpTemplate"/>
+	<rabbit:fanout-exchange name="message-write.exchange.caller">
+		<rabbit:bindings>
+			<rabbit:binding queue="message-write.queue.caller" />
+		</rabbit:bindings>
+	</rabbit:fanout-exchange>
+	
+	<rabbit:queue name="message-write.queue.caller" />
+</beans>
